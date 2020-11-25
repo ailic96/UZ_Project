@@ -22,6 +22,7 @@ Gather metadata from URL-s obtained in a __.txt__ file and write them in a form 
 
 __Proposed metadata:__
 
+* ID
 * Title
 * Subtitle
 * URL
