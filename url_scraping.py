@@ -6,7 +6,7 @@ import os                       # file management
 import time                     # timers
 
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options as Options  #for headless firefox
+from selenium.webdriver.firefox.options import Options  #for headless firefox
 from selenium.webdriver.common.keys import Keys
 
 import warnings
@@ -47,6 +47,11 @@ def category_crawler(assign_url):
     return category_list
 
 
+# Scrolls a page to bottom to activate JS event (Automatic scroll)
+# Sleeps for 1.5 seconds because that's how much time is needed
+# to load a new content
+# Takes number of scrolls for each category for an argument 
+
 def scroll_category(scroll_counter):
     
     for i in range(scroll_counter):
@@ -77,26 +82,28 @@ def article_crawler(assign_url):
 
      # Go to assigned url through Selenium
      if  (assign_url == 'https://www.dalmacijadanas.hr/rubrika/dalmacija/'):
-        scroll_category(1500)
-        #scroll_category(5)
+        #scroll_category(900)
+        scroll_category(2)
      elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/vijesti/'):
-        scroll_category(1500)
-        #scroll_category(5)
+        #scroll_category(900)
+        scroll_category(1)
      elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/sport/'):
-        scroll_category(800)
-        #scroll_category(5)
+        #scroll_category(400)
+        scroll_category(1)
      elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/relax/'):
-        scroll_category(800)
-        #scroll_category(5)
+        #scroll_category(350)
+        scroll_category(1)
      elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/specijali/'):
-        scroll_category(500)
-        #scroll_category(5)
+        #scroll_category(100)    
+        scroll_category(1)
      elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/kolumne/'):
-        scroll_category()
+        #scroll_category(30)     #Definite number
+        scroll_category(1)
      else:
          print('Error: Category not found')
 
- 
+     
+     print('\nProcessing category: ' + assign_url + '\n')
 
      # html contains whole page html for further URL parsing
      html = driver.page_source
@@ -110,23 +117,10 @@ def article_crawler(assign_url):
      for art_url in art_urls:
         
         link = art_url.find('a')['href']
-        counter = counter + 1   
+
         
         # add article URL to to article list
         article_list.append(link)         
-        
-     print('================================================')
-     print('Articles Fetched: ' + str(counter))
-     print('from category: ' + assign_url)
-     print('Fetching next category URL-s...')
-     print('================================================')
-
-     article_log = open('portal_log.txt', 'a')
-     article_log.write('================================================\n')
-     article_log.write('Articles Fetched: ' + str(counter) + '\n')
-     article_log.write('from category: ' + assign_url + '\n')
-     article_log.write('================================================\n')
-     article_log.close()
 
      for article in article_list:
         
@@ -142,9 +136,23 @@ def article_crawler(assign_url):
         if(article_scraper(article_scraper_response)):
             break
         else: 
+            counter = counter + 1   
             continue
+            
 
      print('Fetching from a category finished.')
+     print('================================================')
+     print('Articles Fetched: ' + str(counter))
+     print('from category: ' + assign_url)
+     print('Fetching next category URL-s...')
+     print('================================================')
+
+     article_log = open('portal_log.txt', 'a')
+     article_log.write('================================================\n')
+     article_log.write('Articles Fetched: ' + str(counter) + '\n')
+     article_log.write('from category: ' + assign_url + '\n')
+     article_log.write('================================================\n')
+     article_log.close()
 
 
 
@@ -156,8 +164,9 @@ def article_crawler(assign_url):
 def article_scraper(assign_url):
 
     # Declaration of start and finish article scrap date
-    start_date = datetime.date(2020, 1, 1)
-    finish_date = datetime.date(2020, 11, 30)
+    
+    start_date = datetime.date(2020, 11, 27)
+    finish_date = datetime.date(2020, 11, 26)
 
     last_article = False
 
@@ -174,18 +183,24 @@ def article_scraper(assign_url):
         date_time_obj = datetime.datetime.strptime(date_raw, '%Y-%m-%dT%H:%M:%S%z')
         # Assign article date to a variable
         article_date = date_time_obj.date()
-        print(article_date)         #testing
+        print('Processing date: ' + str(article_date))         #testing
 
-        # checks if currently looped date is between conditions
-        if (start_date  <= article_date <= finish_date ): 
+        # If date is in a wanted interval of dates, write it to a .txt file
+        if (finish_date <= article_date <= start_date): 
             
             print("date ok")        #testing
             scraped_url = soup.find('meta', property='og:url').get('content')
             portal_urls.write(scraped_url + '\n')
-            print(scraped_url)            
+            print(scraped_url)      
+
+        # If current date is bigger than a start date condition, skip URL
+        elif(article_date > finish_date):
+
+            print('Date before wanted date: ' + str(start_date))
+            continue
         else:
            
-            print('date skipped')   #testing
+            print('Last date detected!')   #testing
             # If last article found, returns True value, terminates the loop
             last_article = True
             return last_article

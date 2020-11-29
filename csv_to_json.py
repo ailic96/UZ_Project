@@ -11,4 +11,4 @@ with open(csv_file_path, encoding = 'utf-8') as csv_file:
         data[id] = rows
 
 with open(json_file_path, 'w', encoding = 'utf-8') as json_file:
-    json_file.write(json.dumps(data, indent=4))
+    json_file.write(json.dumps(data, indent=4, ensure_ascii=False))

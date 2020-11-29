@@ -5,3 +5,7 @@ portal_articles.csv
 geckodriver.log
 portal_log.txt
 portal_urls.txt
+.Rhistory
+portal_articles copy.csv
+portal_urls copy 2.txt
+portal_urls_BACKUP.txt

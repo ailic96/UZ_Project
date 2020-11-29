@@ -46,7 +46,7 @@ __Proposed metadata:__
 
  ## Requirements
  * Visual Studio Code
- * Windows WSL 1
+ * Windows WSL 1 (Optional)
  * pip 20.0.2 from /home/user/.local/lib/python3.6/site-packages/pip (python 3.6)
  * Python 3.6.9
  * Libraries
@@ -56,10 +56,18 @@ __Proposed metadata:__
     * re (Regular expressions)
     * time
     * datetime
+    * os
+    * csv
 
 <hr>
 
 ## Running instructions
+
+__NOTE:__
+
+It is worth mentioning that every time you run each of these scripts, all previously collected data in _.txt_ and _.csv_ will be __overwritten__! This could become a problem because execution time is __very long__.
+
+<hr>
 
 From terminal/cmd:
 
@@ -68,11 +76,11 @@ python url_scraping.py
 ```
 
 This will create a _portal_urls.txt_ file and scrape article URL-s into it.
-A file _portal_log.txt_ is also created in order to track how many articles were loaded in each category, since terminal is unable to carry so many informations.
+A file _portal_log.txt_ is also created in order to track how many articles were loaded in each category, since terminal is unable to carry so many informations. At the end of execution, timer will display how much time has passed since script initiation
 
 For further article scraping run:
 ```
 python article_scraper.py
 ```
 
-This will create a _portal_articles.csv_ which contains scraped article metadata and data.
+This will create a _portal_articles.csv_ which contains scraped article metadata and data. Script will automatically parse needed data and save it in a project folder. At the end of execution, timer will display how much time has passed since script initiation
