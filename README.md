@@ -22,6 +22,10 @@ Gather metadata from URL-s obtained in a __.txt__ file and write them in a form 
 
 __Proposed metadata:__
 
+<<<<<<< HEAD:UZ_Project.md
+=======
+* ID
+>>>>>>> 9cc867df72b4278d0bc0f15f27cd6519d62b5c4c:README.md
 * Title
 * Subtitle
 * URL
@@ -34,7 +38,7 @@ __Proposed metadata:__
 * Reaction 1 (Love)
 * Reaction 2 (Laugh)
 * Reaction 3 (Blushy)
-* Reaction 4 (Worried)
+* Reaction 4 (Ponder)
 * Reaction 5 (Sad)
 * Reaction 6 (Mad)
 * Reaction 7 (Mind blown)
