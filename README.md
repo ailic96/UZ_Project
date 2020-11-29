@@ -22,6 +22,7 @@ Gather metadata from URL-s obtained in a __.txt__ file and write them in a form 
 
 __Proposed metadata:__
 
+* ID
 * Title
 * Subtitle
 * URL
@@ -34,7 +35,7 @@ __Proposed metadata:__
 * Reaction 1 (Love)
 * Reaction 2 (Laugh)
 * Reaction 3 (Blushy)
-* Reaction 4 (Worried)
+* Reaction 4 (Ponder)
 * Reaction 5 (Sad)
 * Reaction 6 (Mad)
 * Reaction 7 (Mind blown)
