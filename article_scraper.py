@@ -74,6 +74,7 @@ with open('portal_articles.csv', 'a', encoding = 'utf-8') as csv_file:
         print('Processed ' + str(processed_urls) + ' / ' + str(url_counter) + ' URL-s')
         #print('Processing URL:\n' + url)
 
+        # Debugging
         # Check if site is reachable, use with caution
         # Can be used for debugging, slows down the program by 5  times
         # press tab on code after else and before .json file creation
