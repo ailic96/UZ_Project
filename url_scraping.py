@@ -25,7 +25,7 @@ warnings.filterwarnings("ignore", category=UserWarning, module='bs4')
 
 def category_crawler(assign_url):
     
-    soup = BeautifulSoup(assign_url, 'html.parser')
+    soup = BeautifulSoup(assign_url, 'lxml')
     
     # Creates a list to put category URL-s in
     category_list = []
@@ -82,23 +82,23 @@ def article_crawler(assign_url):
 
      # Go to assigned url through Selenium
      if  (assign_url == 'https://www.dalmacijadanas.hr/rubrika/dalmacija/'):
-        #scroll_category(900)
-        scroll_category(2)
+        #scroll_category(900)   #for reaching 1.1.2020
+        scroll_category(20)
      elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/vijesti/'):
-        #scroll_category(900)
-        scroll_category(1)
+        #scroll_category(900)   #for reaching 1.1.2020
+        scroll_category(20)      
      elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/sport/'):
-        #scroll_category(400)
-        scroll_category(1)
+        #scroll_category(400)   #for reaching 1.1.2020
+        scroll_category(20)
      elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/relax/'):
-        #scroll_category(350)
-        scroll_category(1)
+        #scroll_category(350)   #for reaching 1.1.2020
+        scroll_category(10)
      elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/specijali/'):
-        #scroll_category(100)    
-        scroll_category(1)
+        #scroll_category(100)   #for reaching 1.1.2020 
+        scroll_category(10)
      elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/kolumne/'):
-        #scroll_category(30)     #Definite number
-        scroll_category(1)
+        #scroll_category(30)    #for reaching 1.1.2020
+        scroll_category(5)
      else:
          print('Error: Category not found')
 
@@ -165,8 +165,8 @@ def article_scraper(assign_url):
 
     # Declaration of start and finish article scrap date
     
-    start_date = datetime.date(2020, 11, 27)
-    finish_date = datetime.date(2020, 11, 26)
+    start_date = datetime.date(2020, 11, 30)
+    finish_date = datetime.date(2020, 11, 25)
 
     last_article = False
 

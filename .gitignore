@@ -1,11 +1,13 @@
 portal_urls_test.txt
 portal_urls copy.txt
-portal_articles.json
-portal_articles.csv
 geckodriver.log
-portal_log.txt
-portal_urls.txt
 .Rhistory
 portal_articles copy.csv
 portal_urls copy 2.txt
 portal_urls_BACKUP.txt
+portal_urls_BACKUP_edited_with_30-25.txt
+portal_urls_30-25.txt
+portal_urls.txt
+portal_log.txt
+portal_articles.json
+portal_articles.csv
