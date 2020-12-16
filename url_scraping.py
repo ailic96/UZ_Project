@@ -147,7 +147,7 @@ def article_crawler(assign_url):
      print('Fetching next category URL-s...')
      print('================================================')
 
-     article_log = open('portal_log.txt', 'a')
+     article_log = open('output/portal_log.txt', 'a')
      article_log.write('================================================\n')
      article_log.write('Articles Fetched: ' + str(counter) + '\n')
      article_log.write('from category: ' + assign_url + '\n')
@@ -220,10 +220,10 @@ start = time.time()
 
 # Removes portal_urls.txt if exists for having a clean
 # portal_urls.txt file on each run
-if os.path.exists('portal_urls.txt'):
-    os.remove('portal_urls.txt')
-if os.path.exists('portal_log.txt'):
-    os.remove('portal_log.txt')
+if os.path.exists('output/portal_urls.txt'):
+    os.remove('output/portal_urls.txt')
+if os.path.exists('output/portal_log.txt'):
+    os.remove('output/portal_log.txt')
 
 # Main news portal URL
 url = 'https://dalmacijadanas.hr'

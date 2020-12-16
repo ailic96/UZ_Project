@@ -11,3 +11,15 @@ portal_urls.txt
 portal_log.txt
 portal_articles.json
 portal_articles.csv
+output/portal_articles_month.csv
+output/portal_articles_day.csv
+output/portal_articles_covid.csv
+output/portal_articles_category.csv
+backup/portal_articles_day.csv
+backup/portal_articles_covid.csv
+backup/portal_articles_category.csv
+backup/portal_article_logger.txt
+output/portal_article_logger.txt
+portal_article_logger.txt
+csv_viewer.R
+csv_to_json.py

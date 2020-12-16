@@ -15,21 +15,21 @@ start = time.time()
 
 # Deletes portal_articles.csv in order to have
 # a clean start on every run
-if os.path.exists('portal_articles.csv'):
-    os.remove('portal_articles.csv')
+if os.path.exists('output/portal_articles.csv'):
+    os.remove('output/portal_articles.csv')
 
-if os.path.exists('portal_article_logger.txt'):
-    os.remove('portal_article_logger.txt')
+if os.path.exists('output/portal_article_logger.txt'):
+    os.remove('output/portal_article_logger.txt')
 
 
 # Opens portal_urls for reading article links
-file = open('portal_urls.txt', 'r')
+file = open('output/portal_urls.txt', 'r')
 # Logs a number of processed URL-s
-reporting = open('portal_article_logger.txt', 'a')
+reporting = open('output/portal_article_logger.txt', 'a')
 
 # Number of lines / URLS to be processed
 processed_urls = 1
-url_counter = len(open('portal_urls.txt').readlines())
+url_counter = len(open('output/portal_urls.txt').readlines())
 print('Found ' + str(url_counter) + ' urls')
 
 
@@ -44,11 +44,11 @@ reporting.write('Script execution started at: ' + current_time + '\n')
 reporting.flush()
 
 # Create .csv file and write column headers to it
-with open('portal_articles.csv', 'a', encoding = 'utf-8') as csv_file:
+with open('output/portal_articles.csv', 'a', encoding = 'utf-8') as csv_file:
     csv_writer = writer(csv_file, 
     delimiter=',', 
     quotechar='"', 
-    quoting = csv.QUOTE_MINIMAL, 
+    quoting = csv.QUOTE_NONNUMERIC, 
     lineterminator='\n')  
 
     headers = ['ID', 'Title', 'Subtitle', 'URL', 
@@ -127,7 +127,7 @@ with open('portal_articles.csv', 'a', encoding = 'utf-8') as csv_file:
         # Last time article has been modified / Parsing
         modified_time_raw = soup.find(property='article:modified_time').get('content')
         modified_time_obj = datetime.datetime.strptime(modified_time_raw, '%Y-%m-%dT%H:%M:%S%z')  
-        modified_time = published_time_obj.date()
+        modified_time = modified_time_obj.date()
 
         # Author of article/photo 
         author = soup.find(class_ = 'td-author-name vcard author').get_text()
@@ -206,8 +206,8 @@ with open('portal_articles.csv', 'a', encoding = 'utf-8') as csv_file:
 
 print('\nCreating a .JSON file...')
 
-csv_file_path = 'portal_articles.csv'
-json_file_path = 'portal_articles.json'
+csv_file_path = 'output/portal_articles.csv'
+json_file_path = 'output/portal_articles.json'
 
 # Writing csv to json
 data = {}

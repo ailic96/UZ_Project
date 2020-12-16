@@ -1,7 +1,7 @@
 import csv, json
 
-csv_file_path = 'portal_articles.csv'
-json_file_path = 'portal_articles.json'
+csv_file_path = 'output/portal_articles.csv'
+json_file_path = 'output/portal_articles.json'
 
 data = {}
 with open(csv_file_path, encoding = 'utf-8') as csv_file:

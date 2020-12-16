@@ -1,5 +1,0 @@
-ARTICLE SCRAPER LOG
-Found 22436 urls
-Script execution started at: 09:07:59
-
-Time spent processing data: 35978.07612347603

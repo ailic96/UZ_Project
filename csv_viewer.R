@@ -7,5 +7,3 @@ csv_file <- read_csv(file = 'portal_articles.csv')
 
 View(csv_file)
 glimpse(csv_file)
-
-
