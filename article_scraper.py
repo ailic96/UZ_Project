@@ -48,7 +48,7 @@ with open('output/portal_articles.csv', 'a', encoding = 'utf-8') as csv_file:
     csv_writer = writer(csv_file, 
     delimiter=',', 
     quotechar='"', 
-    quoting = csv.QUOTE_NONNUMERIC, 
+    quoting = csv.QUOTE_MINIMAL, 
     lineterminator='\n')  
 
     headers = ['ID', 'Title', 'Subtitle', 'URL', 
