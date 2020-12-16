@@ -171,7 +171,7 @@ def article_scraper(assign_url):
     last_article = False
 
     # Output file declaration, used for article URL-s
-    portal_urls = open('portal_urls.txt', 'a')
+    portal_urls = open('output/portal_urls.txt', 'a')
 
     soup = BeautifulSoup(assign_url.text, 'html.parser')
 
