@@ -37,7 +37,6 @@ covid_sum = covid_sum.rename(index = {0 : 'COVID_Articles', 1 : 'Non-COVID_Artic
                              columns = {0 :'Number'})     
                             
 covid_sum = covid_sum.drop(columns = 'index')
-print(covid_sum)
 
 # ######################
 # BAR PLOT
@@ -136,7 +135,7 @@ big_cat.plot(y = 'Total_articles',
             figsize = (11,6),
             startangle = 0)
 
-plt.title ('Non-COVID related articles ratio by category')
+plt.title ('Total articles ratio by category')
 plt.legend(loc='lower right', bbox_to_anchor=(1.3,0))
 plt.savefig('graphing/pie_category.png')
 
