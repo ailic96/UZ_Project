@@ -43,6 +43,8 @@ reporting.write('Found ' + str(url_counter) + ' urls\n')
 reporting.write('Script execution started at: ' + current_time + '\n')
 reporting.flush()
 
+
+
 # Create .csv file and write column headers to it
 with open('output/portal_articles.csv', 'a', encoding = 'utf-8') as csv_file:
     csv_writer = writer(csv_file, 
@@ -179,28 +181,23 @@ with open('output/portal_articles.csv', 'a', encoding = 'utf-8') as csv_file:
             if regex:
                 comments = regex.group(1)
 
-        # Identify reactions html elements
-        for react_element in soup.find_all(class_='wpra-call-to-action'):
-                reactions = react_element.next_sibling.next_sibling.get_text()
         
-        # Splitting reaction string, assigning emoji strings to variables
-        reactions = reactions.split('   ')
-
-        reaction_love = reactions[1]
-        reaction_laugh = reactions[3]
-        reaction_blushy = reactions [5]
-        reaction_ponder = reactions [7]
-        reaction_sad = reactions[9]
-        reaction_mad = reactions[11]
-        reaction_mind_blown = reactions[13]
-
+        # Find reaction elements
+        reaction_love =     soup.find(class_ = 'reaction1 wpra-reaction').get('data-count')
+        reaction_laugh =    soup.find(class_ = 'reaction2 wpra-reaction').get('data-count')
+        reaction_blushy =   soup.find(class_ = 'reaction3 wpra-reaction').get('data-count')
+        reaction_ponder =   soup.find(class_ = 'reaction4 wpra-reaction').get('data-count')
+        reaction_sad =      soup.find(class_ = 'reaction5 wpra-reaction').get('data-count')
+        reaction_mad =      soup.find(class_ = 'reaction6 wpra-reaction').get('data-count')
+        reaction_mind_blown = soup.find(class_ = 'reaction7 wpra-reaction').get('data-count')
+        
         # Writes a row into a csv file
         csv_writer.writerow([id, title, subtitle, article_url, 
         section, whole_text, published_time, modified_time,
         author, comments, reaction_love,reaction_laugh,reaction_blushy,
         reaction_ponder, reaction_sad, reaction_mad,
         reaction_mind_blown])
-
+        
         processed_urls += 1
 
 
