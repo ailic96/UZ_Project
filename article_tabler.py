@@ -112,7 +112,7 @@ Output: portal_articles_day.csv
 def articles_by_day():
 
     csv_input = 'output/portal_articles_covid.csv'
-    csv_output = 'output/portal_articles_day.csv'
+    csv_output = 'output/tables_categorized/portal_articles_day.csv'
     
     # Uses pandas method 'read_csv' for openin a .csv file
     csv_reader = pd.read_csv(csv_input, sep = ',', encoding = 'utf-8')
@@ -150,7 +150,7 @@ Output: portal_articles_category.csv
 def articles_by_category():
     
     csv_input = 'output/portal_articles_covid.csv'
-    csv_output = 'output/portal_articles_category.csv'
+    csv_output = 'output/tables_categorized/portal_articles_category.csv'
 
     # Uses pandas method 'read_csv' for openin a .csv file
     csv_reader = pd.read_csv(csv_input, sep = ',', encoding = 'utf-8')
@@ -186,7 +186,7 @@ Output: portal_articles_month.csv
 def articles_by_month():
     
     csv_input = 'output/portal_articles_covid.csv'
-    csv_output = 'output/portal_articles_month.csv'
+    csv_output = 'output/tables_categorized/portal_articles_month.csv'
 
     csv_reader = pd.read_csv(csv_input, sep = ',', encoding = 'utf-8')
 
@@ -225,9 +225,9 @@ def articles_by_month():
 #Function calls
 
 delete_if_exists('output/portal_articles_covid.csv')
-delete_if_exists('output/portal_articles_day.csv')
-delete_if_exists('output/portal_articles_category.csv')
-delete_if_exists('output/portal_articles_month.csv')
+delete_if_exists('output/tables_categorized/portal_articles_day.csv')
+delete_if_exists('output/tables_categorized/portal_articles_category.csv')
+delete_if_exists('output/tables_categorized/portal_articles_month.csv')
 
 
 covid_identifier()
