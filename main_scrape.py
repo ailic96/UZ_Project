@@ -5,8 +5,6 @@ def main():
     '''
     Run all scripts used for scraping a website
     '''
-    exec(article_tabler)
-    exec(article_grapher)
 
 if __name__ == "__main__":
 
