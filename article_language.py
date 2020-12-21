@@ -4,8 +4,8 @@ import pandas as pd                 # Handling dataframes
 import csv                          # Handling csv files
 from collections import Counter     # Counting word frequency
 
-import matplotlib.pyplot as plt
-from wordcloud import WordCloud
+import matplotlib.pyplot as plt     # Plotting
+from wordcloud import WordCloud     # Plotting
 
 import nltk                         # Natural language manipulation
 from nltk.tokenize import word_tokenize               
@@ -14,20 +14,24 @@ from nltk.corpus import stopwords
 #nltk.download('stopwords')
 
 
-
-'''
-Deletes files if they exist on a given path
-Input: file path
-Output: Warning! Destructive action!
-'''
 def delete_if_exists(path):
+    """Deletes a file from input path if file exists.
+    WARNING: Potentialy destructive action
+    Args:
+        path ([string]): Path variable or string
+    """
     if os.path.exists(path):
         os.remove(path)
 
 
 
 def dictionary_editor(input_file, output_file):
+    """Turns raw stop word file to machine readable version
 
+    Args:
+        input_file ([file]): Raw input file
+        output_file ([file]): Clean output file
+    """
     delete_if_exists(output_file)  
 
     file_reader = open(input_file, 'r', encoding='utf-8')
@@ -51,6 +55,15 @@ def dictionary_editor(input_file, output_file):
 
 
 def dictionary_merger():
+    """Merges all files which start with 'clean_' to form
+    a single stop_words_merged dictionary
+
+    Input:
+        input/clean_stopw/clean_*.txt
+    
+    Output:
+        input/stop_words_merged.txt
+    """
 
     path = 'input/stop_words_merged.txt'
     delete_if_exists(path)
@@ -70,7 +83,16 @@ def dictionary_merger():
 
 
 def isolate_covid_articles():
+    """Saves rows to another .csv file if they are covid related 
+    by comparing a 'COVID' column value. 
+    Used for cleaning rows and for editing the dataframe structure.
 
+    Input:
+        output/portal_articles_covid.csv
+
+    Output:
+        output/discourse_csv/portal_covid_isolated.csv
+    """
     delete_if_exists('output/discourse_csv/portal_covid_isolated.csv')
 
     input_path = 'output/portal_articles_covid.csv'
@@ -95,6 +117,14 @@ def isolate_covid_articles():
 
 
 def file_to_list(input_file):
+    """Creates a list from input file by reading .txt file by row.
+
+    Args:
+        input_file ([file]): .txt file with '\n' delimiter.
+
+    Returns:
+        [list]: A list of elements from .txt.
+    """
 
     list = []
     file = open(input_file, 'r', encoding='utf-8')
@@ -108,6 +138,14 @@ def file_to_list(input_file):
 
 
 def clear_stop_words():
+    """Used for clearing stop words from portal_covid_isolated which are
+    predefined in stop_words_merged.txt
+    Input: 
+        input/stop_words_merged.txt
+        output/discourse_csv/portal_covid_clean.csv'
+    Output:
+        output/discourse_csv/portal_covid_clean.csv   
+    """
 
     delete_if_exists('output/discourse_csv/portal_covid_clean.csv')
 
@@ -158,6 +196,14 @@ def clear_stop_words():
 
 
 def word_frequency(input_month):
+    """Calculates word frequency from portal_covid_clean.csv by month.
+
+    Args:
+        input_month ([int]): Used for filtering values by month
+
+    Output: output/word_frequencies/word_frequency_{month}.csv 
+    which contains words and their frequency.
+    """
     
     input_path = 'output/discourse_csv/portal_covid_clean.csv'
     output_path = 'output/word_frequencies/word_frequency_' + str(input_month) + '.csv'
@@ -189,6 +235,13 @@ def word_frequency(input_month):
 
 
 def to_word_cloud():
+    """Generates a word cloud for every month. Word cloud consists of top 25
+    used words on a news portal monthly. 
+    
+    Input files: Graphs are based on .csv files in output/word_frequencies/
+    
+    Output files: Graphs are saved in graphing/word_frequencies/
+    """
 
     for i in range(1,12):
         input_path = 'output/word_frequencies/word_frequency_' + str(i) + '.csv'
@@ -214,7 +267,16 @@ def to_word_cloud():
 
 
 def jaccard_index(list1, list2):
+    """Calculates jaccard index for input of numbers.
 
+    Args:
+        list1 ([list]): List of words from the first dataframe.
+        list2 ([list]): List of words from the second dataframe.
+
+    Returns:
+        [float]: Returns a calculated value of jaccard index 
+        rounded on 4 digits.
+    """    
     intersection = len(list(set(list1).intersection(list2)))
     union = (len(list1) + len(list2)) - intersection
     
@@ -226,6 +288,15 @@ def jaccard_index(list1, list2):
 
 
 def calculate_jaccard(month_1, month_2):
+    """Assigns a month number to path for fetching a .csv file which contains
+    a column used for calculating the jaccard index.
+    
+    Generates jaccard_index.csv file
+
+    Args:
+        month_1 ([int]): First month number for comparision
+        month_2 ([int]): First month number for comparision
+    """    
 
     input_path_1 = 'output/word_frequencies/word_frequency_' + str(month_1) + '.csv'
     input_path_2 = 'output/word_frequencies/word_frequency_' + str(month_2) + '.csv'
@@ -256,7 +327,10 @@ def calculate_jaccard(month_1, month_2):
             csv_writer.writerow(row)
 
 def visualize_jaccard():
-
+    """Visualizes output/word_frequencies/jaccard_index.csv for each pair
+    of months through a bar plot
+    """
+                
     input_path = 'output/word_frequencies/jaccard_index.csv'
 
     df = pd.read_csv(input_path, sep = ',')
@@ -295,6 +369,7 @@ to_word_cloud()
 # Necessery for reproductivity
 delete_if_exists('output/word_frequencies/jaccard_index.csv')
 
+# Calculate jaccard for month pairs
 calculate_jaccard(1, 2)
 calculate_jaccard(2, 3)
 calculate_jaccard(3, 4)

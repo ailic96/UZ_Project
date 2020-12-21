@@ -15,15 +15,17 @@ import warnings
 # This line ignores these warnings
 warnings.filterwarnings("ignore", category=UserWarning, module='bs4')
 
-'''
-**************
-* FUNCTIONS  *
-**************
-'''
-# Used for fetching category URL-s
-# Returns Absolute URL-s that can be used for further crawling
+
 
 def category_crawler(assign_url):
+    """Used for fetching category URL-s on a news portal
+
+    Args:
+        assign_url ([str]): Web portal index URL.
+
+    Returns:
+        [str]: Returns Absolute URL-s that can be used for further crawling.
+    """
     
     soup = BeautifulSoup(assign_url, 'lxml')
     
@@ -47,12 +49,14 @@ def category_crawler(assign_url):
     return category_list
 
 
-# Scrolls a page to bottom to activate JS event (Automatic scroll)
-# Sleeps for 1.5 seconds because that's how much time is needed
-# to load a new content
-# Takes number of scrolls for each category for an argument 
 
 def scroll_category(scroll_counter):
+    """Scrolls a page to bottom to activate JS event (Automatic scroll).
+    Contains a delay between scrolls for preventing bottlenecks.
+
+    Args:
+        scroll_counter ([int]): Number of automatic scrolls to be used.
+    """
     
     for i in range(scroll_counter):
     
@@ -62,11 +66,13 @@ def scroll_category(scroll_counter):
         print("Loaded " + str(i+1) + " out of " + str(scroll_counter) + " automated scrolls")
 
 
-# Used for fetching URL-s in a news portal category
-# takes a list of category URL-s and fowards them requests
-# returns article URL in a list
 
 def article_crawler(assign_url):
+    """Used for fetching article URL-s in a news portal category.
+
+    Args:
+        assign_url ([string]): URL value which is forwarded to requests.
+    """
  
      # Creates a list to put article URL-s in
      article_list = []
@@ -156,12 +162,17 @@ def article_crawler(assign_url):
 
 
 
-# Used for collecting metadata from news articles
-# and collects metadata for articles published between
-# 1.1.2020 and 30.11.2020 and writes links to .txt
-# and metadata to .csv file
-
 def article_scraper(assign_url):
+    """Used for collecting metadata from news articles, collects 
+    metadata from articles published between hardcoded date values.
+
+    Args:
+        assign_url ([str]): Article URL to be scraped.
+
+    Returns:
+        [bool]: Returns a False boolean value for loop breaking if
+        last article is found.
+    """
 
     # Declaration of start and finish article scrap date
     

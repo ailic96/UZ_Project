@@ -4,7 +4,7 @@ import pandas as pd     # Advanced data manipulation
 
 
 '''
-Deletes files if they exist on a given path
+Deletes files if they exist on a given path.
 Input: file path
 Output: Warning! Destructive action!
 '''
@@ -14,13 +14,15 @@ def delete_if_exists(path):
 
 
 
-'''
-Transforms input file to a list,
-strips '\n' characters at the row end
-Output: list item
-'''
 def file_to_list(input_file):
+    """Creates a list from input file by reading .txt file by row.
 
+    Args:
+        input_file ([file]): .txt file with '\n' delimiter.
+
+    Returns:
+        [list]: A list of elements from .txt.
+    """
     list = []
     file = open(input_file, 'r', encoding='utf-8')
     
@@ -32,14 +34,17 @@ def file_to_list(input_file):
 
 
 
-'''
-Identifies COVID-19 related articles by searching through
-a dictionary of common expressions used in this kind of articles
-Input: CSV file
-Output: The same csv file with added binary value column (0,1) for
-articles related to COVID-19 and not related to COVID-19
-'''
 def covid_identifier():
+    """Identifies COVID-19 related articles by searching through
+    a dictionary of common expressions used in this kind of articles.
+
+    Input:
+        CSV File
+
+    Output:
+        The same csv file with added binary value column (0,1).
+
+    """
 
     covid_dict = file_to_list('input/covid_dictionary.txt')
     csv_input = 'output/portal_articles.csv'
@@ -105,12 +110,15 @@ def covid_identifier():
 
 
 
-'''
-Function counts total and COVID related articles by date. 
-Output: portal_articles_day.csv
-'''
 def articles_by_day():
+    """Counts total and COVID related articles by date. 
 
+    Input:
+        CSV File from path
+    
+    Output:
+        CSV File from path
+    """
     csv_input = 'output/portal_articles_covid.csv'
     csv_output = 'output/tables_categorized/portal_articles_day.csv'
     
@@ -143,11 +151,15 @@ def articles_by_day():
 
 
 
-'''
-Function counts total and COVID related articles by categories. 
-Output: portal_articles_category.csv
-'''
 def articles_by_category():
+    """Counts total and COVID related articles by categories. 
+
+    Input:
+        CSV File from path
+    
+    Output:
+        CSV File from path
+    """
     
     csv_input = 'output/portal_articles_covid.csv'
     csv_output = 'output/tables_categorized/portal_articles_category.csv'
@@ -179,11 +191,15 @@ def articles_by_category():
 
 
 
-'''
-Function counts total and COVID related articles by month. 
-Output: portal_articles_month.csv
-'''
 def articles_by_month():
+    """Counts total and COVID related articles by month. 
+
+    Input:
+        CSV File from path
+    
+    Output:
+        CSV File from path
+    """
     
     csv_input = 'output/portal_articles_covid.csv'
     csv_output = 'output/tables_categorized/portal_articles_month.csv'
@@ -217,10 +233,6 @@ def articles_by_month():
     print(article_month)
 
 
-
-###############
-#    MAIN     #
-###############
 
 #Function calls
 
