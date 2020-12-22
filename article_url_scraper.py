@@ -74,62 +74,62 @@ def article_crawler(assign_url):
         assign_url ([string]): URL value which is forwarded to requests.
     """
  
-     # Creates a list to put article URL-s in
-     article_list = []
+    # Creates a list to put article URL-s in
+    article_list = []
+
+    # Number of articles found counter set to 0
+    counter = 0
+
+
+    print('\n' + 'Loading website: ' + assign_url + '\n')
     
-     # Number of articles found counter set to 0
-     counter = 0
+    driver.get(assign_url) 
 
 
-     print('\n' + 'Loading website: ' + assign_url + '\n')
-     
-     driver.get(assign_url) 
-
-
-     # Go to assigned url through Selenium
-     if  (assign_url == 'https://www.dalmacijadanas.hr/rubrika/dalmacija/'):
+    # Go to assigned url through Selenium
+    if  (assign_url == 'https://www.dalmacijadanas.hr/rubrika/dalmacija/'):
         #scroll_category(900)   #for reaching 1.1.2020
         scroll_category(20)
-     elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/vijesti/'):
+    elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/vijesti/'):
         #scroll_category(900)   #for reaching 1.1.2020
         scroll_category(20)      
-     elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/sport/'):
+    elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/sport/'):
         #scroll_category(400)   #for reaching 1.1.2020
         scroll_category(20)
-     elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/relax/'):
+    elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/relax/'):
         #scroll_category(350)   #for reaching 1.1.2020
         scroll_category(10)
-     elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/specijali/'):
+    elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/specijali/'):
         #scroll_category(100)   #for reaching 1.1.2020 
         scroll_category(10)
-     elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/kolumne/'):
+    elif(assign_url == 'https://www.dalmacijadanas.hr/rubrika/kolumne/'):
         #scroll_category(30)    #for reaching 1.1.2020
         scroll_category(5)
-     else:
-         print('Error: Category not found')
+    else:
+        print('Error: Category not found')
 
-     
-     print('\nProcessing category: ' + assign_url + '\n')
+    
+    print('\nProcessing category: ' + assign_url + '\n')
 
-     # html contains whole page html for further URL parsing
-     html = driver.page_source
-     soup = BeautifulSoup(html, 'html.parser')
-     
-     # Finds all elements containing class, used  for finding all article URLS
-     art_urls = soup.find_all(class_ = 'entry-title td-module-title')     
+    # html contains whole page html for further URL parsing
+    html = driver.page_source
+    soup = BeautifulSoup(html, 'html.parser')
+    
+    # Finds all elements containing class, used  for finding all article URLS
+    art_urls = soup.find_all(class_ = 'entry-title td-module-title')     
 
-    # In a list of HTML containing articles, isolate 
-    # href urls under a tags
-     for art_url in art_urls:
-        
+# In a list of HTML containing articles, isolate 
+# href urls under a tags
+    for art_url in art_urls:
+    
         link = art_url.find('a')['href']
 
-        
-        # add article URL to to article list
-        article_list.append(link)         
+    
+    # add article URL to to article list
+    article_list.append(link)         
 
-     for article in article_list:
-        
+    for article in article_list:
+    
         # Sends HTTP request to each article, enters article
         # and finds needed metadata
         article_scraper_response = requests.get(article, 
@@ -144,21 +144,21 @@ def article_crawler(assign_url):
         else: 
             counter = counter + 1   
             continue
-            
+        
 
-     print('Fetching from a category finished.')
-     print('================================================')
-     print('Articles Fetched: ' + str(counter))
-     print('from category: ' + assign_url)
-     print('Fetching next category URL-s...')
-     print('================================================')
+    print('Fetching from a category finished.')
+    print('================================================')
+    print('Articles Fetched: ' + str(counter))
+    print('from category: ' + assign_url)
+    print('Fetching next category URL-s...')
+    print('================================================')
 
-     article_log = open('output/portal_log.txt', 'a')
-     article_log.write('================================================\n')
-     article_log.write('Articles Fetched: ' + str(counter) + '\n')
-     article_log.write('from category: ' + assign_url + '\n')
-     article_log.write('================================================\n')
-     article_log.close()
+    article_log = open('output/portal_log.txt', 'a')
+    article_log.write('================================================\n')
+    article_log.write('Articles Fetched: ' + str(counter) + '\n')
+    article_log.write('from category: ' + assign_url + '\n')
+    article_log.write('================================================\n')
+    article_log.close()
 
 
 
