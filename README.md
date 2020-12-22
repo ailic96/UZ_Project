@@ -31,8 +31,6 @@ __Drugi dio__ projekta uključuje analizu prikupljenjih podataka. Analiza je fok
  * Libraries
     * _requirements.txt_ priložen u projektu
 
-
-
 <br>
 
 <div style="text-align:center" >
@@ -207,7 +205,7 @@ Pie chart u nastavku prikazuje iste podatke prikazane u obliku prikladnijem za p
 
 <div style="text-align:center" >
 
-<img src="graphing/table_visualization/pie_total.png" width="500">
+<img src="graphing/table_visualization/pie_total.png" width="600">
 
 </div>
 
@@ -252,7 +250,7 @@ Pie chart prikazuje omjere između kategorija po zastupljenosti COVID-19 članak
 
 <div style="text-align:center" >
 
-<img src="graphing/table_visualization/pie_category_covid.png" width="500">
+<img src="graphing/table_visualization/pie_category_covid.png" width="600">
 
 </div>
 
@@ -291,8 +289,157 @@ __Druga faza__ rada skripte je stvaranje liste zaustavnih riječi. To su riječi
 
 Micanje tih riječi je realizirano stvaranjem "sirovih" baza riječi u mapi _input/raw_stopw/_ koje se jednostavnom funkcijom spajaju u jedinstveni riječnik. Taj riječnik (_stop_words_merged.txt_) sadrži riječi koje kroz obradu moraju biti izbačene. Iteriranjem kroz datoteku _portal_cvoid_isolated.csv_ izbacuju se zaustavne riječi.
 
-__Treća faza__ rada se odnosi na stvaranje mjesečnog pregleda 25 najzastupljenijih riječi. Ovisno o mjesecu, u portalima se prebrojavaju riječi, te se gradi lista od 25 najčešćih riječi kojima se portal koristi u svakodnevnom radu. Te su liste spremljene u obliku _.csv_ datoteka u _output/word_frequencies/_, a njihove su tablice i grafovi prikazani u nastavku.
+__Treća faza__ rada se odnosi na stvaranje mjesečnog pregleda 25 najzastupljenijih riječi. Ovisno o mjesecu, u portalima se prebrojavaju riječi, te se gradi lista od 25 najčešćih riječi kojima se portal koristi u svakodnevnom radu. Te su liste spremljene u obliku _.csv_ datoteka u _output/word_frequencies/_, a njihove su tablice i grafovi prikazani u nastavku. Pritom su rezultati vizualizirani koristeći paket _wordcloud_, u njemu se riječi prezentiraju prema veličini ovisno o frekventnosti.
 
+
+### Siječanj
+
+<div style="text-align:center">
+
+<img src="images/table_1.PNG" width="300">
+
+<img src="graphing\word_frequencies\word_frequency_1.png" width="300">
+
+</div>
+
+### Veljača
+
+<div style="text-align:center">
+
+<img src="images/table_2.PNG" width="300">
+
+<img src="graphing\word_frequencies\word_frequency_2.png" width="300">
+
+</div>
+
+### Ožujak
+
+<div style="text-align:center">
+
+<img src="images/table_3.PNG" width="300">
+
+<img src="graphing\word_frequencies\word_frequency_3.png" width="300">
+
+</div>
+
+### Travanj
+
+<div style="text-align:center">
+
+<img src="images/table_4.PNG" width="300">
+
+<img src="graphing\word_frequencies\word_frequency_4.png" width="300">
+
+</div>
+
+### Svibanj
+
+<div style="text-align:center">
+
+<img src="images/table_5.PNG" width="300">
+
+<img src="graphing\word_frequencies\word_frequency_5.png" width="300">
+
+</div>
+
+### Lipanj
+
+<div style="text-align:center">
+
+<img src="images/table_6.PNG" width="300">
+
+<img src="graphing\word_frequencies\word_frequency_6.png" width="300">
+
+</div>
+
+### Srpanj
+
+<div style="text-align:center">
+
+<img src="images/table_7.PNG" width="300">
+
+<img src="graphing\word_frequencies\word_frequency_7.png" width="300">
+
+</div>
+
+### Kolovoz
+
+<div style="text-align:center">
+
+<img src="images/table_8.PNG" width="300">
+
+<img src="graphing\word_frequencies\word_frequency_8.png" width="300">
+
+</div>
+
+### Rujan
+
+<div style="text-align:center">
+
+<img src="images/table_9.PNG" width="300">
+
+<img src="graphing\word_frequencies\word_frequency_9.png" width="300">
+
+</div>
+
+### Listopad
+
+<div style="text-align:center">
+
+<img src="images/table_10.PNG" width="300">
+
+<img src="graphing\word_frequencies\word_frequency_10.png" width="300">
+
+</div>
+
+### Studeni
+
+<div style="text-align:center">
+
+<img src="images/table_11.PNG" width="300">
+
+<img src="graphing\word_frequencies\word_frequency_11.png" width="300">
+
+</div>
+
+Pregledom svih grafova je utvrđena frekventnost 25 najkorištenijih riječi za svaki mjesec. Pomnijom analizom se može uočiti da se najkorištenije riječi odnose na tada tek završene predsjedničke izbore gdje su frekventne riječi. Tu je zastupljeno i ime tada aktualne bivše predsjednice Kolinde Grabar-Kitarović. Tu je također riječ predsjednik vjerojatno korištena u kontekstu novoizabranog predsjednika. Stožer za razliku od današnjeg je tada podrazumijevao izborni stožer kandidata za predsjednika. Također, vidljivo je da je portal jako fokusiran na splitsko područje po korištenju riječi Marjan i Split. 
+
+Valja napomenuti da se radi o lažno klasificiranim podacima pod COVID statistiku budući da se neki slični termini kao što je "stožer" može biti korišten u kontekstu izbornog stožera i Stožera civilne zaštite. Radi se o razdoblju u kojem portali o tematici virusa nisu raspravljali, tako da tablicu za prvi mjesec nema smisla uključivati u analizu.
+
+U Veljači se tonalitet mijenja. Koronavirus tematika postaje _de facto_ središnja tema na portalu te se u frekventnim riječima osim riječi koronavirus (i njegove varijacije) može pronaći i riječ Italiji. Italija se spominje zbog činjenice da je u drugom mjesecu bila jedna od najpogođenijih zemlja, pa nije ni čudno da se našla na toj listi.
+
+Od veljače do danas se frekventne riječi nisu previše mijenjale. Broj riječi je određen trenutnom situacijom, što znači da se formira ovisno o mjerama i broju bolesnih. Visoko na listi se u svakom slučaju nalazi riječ ljudi, osobe i broj što je očekivano budući da se portal kao i svaki najviše obazire na nove broje iz dana u dan. Također je uočljivo da se u listi ponavlja broj 24 kao često ponavljana riječ. To je očekivano budući da većina izjava na tu temu počinje sa "U posljednja 24 sata...". 
+
+Problem u ovoj vrsti analize predstavljaju promijenjive vrste riječi koje zagađuju konačnu listu od 25 riječi. Eliminacija takvih riječi bi vjerojatno dala puno bolje rezultate, ali čak i sada je moguće izvući neku interpretaciju. Iz riječi se po mjesecima može zaključiti da portal ne iznosi previše mišljenja na temu virusa, već da iz dana u dan izvještava o brojkama novozaraženih te o prenošenju izjava vladajućih na aktualnu temu.
+
+### __Jaccardov indeks__
+
+Odnos korištenih riječi na mjesečnoj bazi možemo prikazati [Jaccardovim indeksom](https://en.wikipedia.org/wiki/Jaccard_index) kojim dobivamo uvid u presjek skupova unije. Radi se o koeficijentu koju u odnosu na broj sličnosti između dva promatrana skupa rezultira u broju između 0 i 1. Ukoliko je broj bliže 1, postoji veća sličnost, dok ukoliko je broj manji od jedan, postoji manja sličnost. 
+
+Skupovi (mjeseci) su uspoređeni u paru po dvoje na način da se svaki mjesec usporedi s onim sljedećim (_Npr._ Siječanj-Veljača, Veljača-Ožujak,). Tablični i grafički prikaz su prikazani u nastavku. 
+
+U tablici je vidljiv poprilično mali presjek između vokabulara prvog i drugog mjeseca, što je i očekivano budući da zbog loše klasifikacije taj rezultat nema smisla promatrati. Što se tiče ostalih mjeseci, u pravilu je vidljiv veći presjek riječi. Vidljivo je da je vokabular između 2. i 6. mjeseca konstantan zbog ozračja u kojem se svijet nalazio. Zatim je vidljiv pad kroz 6. i 7. mjesec zbog činjenice da se virus teže širi ljeti zbog čega pada aktualnost teme. Povratkom virusa krajem ljeta, koeficijent se ponovno povećava, gdje ostaje do danas. 
+
+<br>
+
+<div style="text-align:center">
+
+<img src="images\jaccard_index.PNG" width="300">
+
+</div>
+
+<br>
+
+
+U nastavku slijedi i grafički prikaz koeficijenata presjeka dobivenog Jaccardovim indeksom.
+
+<div style="text-align:center">
+
+<img src="output/word_frequencies/jacard_bar_plot.png" width="500">
+
+</div>
+
+<br>
 
 ## Upute za pokretanje drugog dijela 
 
