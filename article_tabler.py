@@ -45,7 +45,6 @@ def covid_identifier():
         The same csv file with added binary value column (0,1).
 
     """
-
     covid_dict = file_to_list('input/covid_dictionary.txt')
     csv_input = 'output/portal_articles.csv'
     csv_output = 'output/portal_articles_covid.csv' 
@@ -103,8 +102,6 @@ def covid_identifier():
             # Sum of articles
             article_counter += 1
 
-
-
     print('Total articles:', article_counter)
     print('COVID-19 articles:', covid_counter)
 
@@ -160,7 +157,6 @@ def articles_by_category():
     Output:
         CSV File from path
     """
-    
     csv_input = 'output/portal_articles_covid.csv'
     csv_output = 'output/tables_categorized/portal_articles_category.csv'
 
@@ -200,7 +196,6 @@ def articles_by_month():
     Output:
         CSV File from path
     """
-    
     csv_input = 'output/portal_articles_covid.csv'
     csv_output = 'output/tables_categorized/portal_articles_month.csv'
 

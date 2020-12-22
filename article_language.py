@@ -257,9 +257,9 @@ def to_word_cloud():
         max_words=25, 
         background_color="white").generate(text)
 
+        plt.title('Month: ' + str(i) + ' - most frequent words')
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis("off")
-        plt.title('Month: ' + str(i) + ' - most frequent words')
 
         print('Generating ' + str(i) +  '. wordcloud at ' + output_path)
         wordcloud.to_file(output_path)
@@ -343,6 +343,8 @@ def visualize_jaccard():
     plt.title('Jaccard index monthly')
     plt.legend(loc='upper center')
     plt.savefig('output/word_frequencies/jacard_bar_plot.png')
+
+
 
 # Create dictionary
 dictionary_editor('input/raw_stopw/raw_zamjenice.txt', 'input/clean_stopw/clean_zamjenice.txt')
