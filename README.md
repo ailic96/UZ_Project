@@ -2,6 +2,11 @@
 ### Autor: 
 Anton Ilić
 
+### Mentori:
+_izv. prof. dr. sc._ Ana Meštrović
+
+_dr. sc._ Slobodan Beliga
+
 ### Kolegij:
 Upravljanje znanjem
 
