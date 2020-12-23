@@ -36,6 +36,10 @@ __Drugi dio__ projekta uključuje analizu prikupljenjih podataka. Analiza je fok
  * Bliblioteke
     * _requirements.txt_ priložen u projektu
 
+## Važna napomena
+
+* Izgrađene baze podataka nisu uključene u Git repozitorij jer bi na taj način ovaj projekt kršio uvjete korištenja portala. Podaci u ovom projektu su korišteni isključivo kao demonstracija korištenja primjenjenih metoda  u svrhu savladavanja gradiva na konkretnim primjerima na kolegiju Upravljanje znanjem. Komercijalna upotreba tih podataka nije dozvoljena.
+
 <br>
 
 <div style="text-align:center" >
@@ -67,7 +71,7 @@ U prvoj fazi izrade projekta izrađene su jedinstvene skripte _article_url_scrap
 
 ### Način rada
 
-__Napomena__: Detaljan način rada je opisan u svakoj pojedinoj skripti
+__Napomena__: Detaljan način rada je opisan u svakoj pojedinoj skripti.
 
 ### __article_url_scraper.py__
 
@@ -146,7 +150,7 @@ U drugoj fazi izrade projekta koriste se skripte _article_tabler.py_, _article_g
 
 ### Način rada
 
-__Napomena__: Detaljan način rada je opisan u svakoj pojedinoj skripti
+__Napomena__: Detaljan način rada je opisan u svakoj pojedinoj skripti.
 
 ### __article_url_tabler.py__
 
@@ -199,7 +203,7 @@ Treća tablica se odnosi na pregled ukupnog broja COVID-19 članaka te ukupnog b
 
 ### __article_url_grapher.py__
 
-Skripta učitava _.csv_  tablice kreirane u skripti _article_url_tabler.py_ te ih vizualizira pomoću prikladnih grafova koji se nakon izvedbe spremaju u _graphing/_ mapu. U nastavku slijedi prikaz tih grafova
+Skripta učitava _.csv_  tablice kreirane u skripti _article_url_tabler.py_ te ih vizualizira pomoću prikladnih grafova koji se nakon izvedbe spremaju u _graphing/_ mapu. U nastavku slijedi prikaz tih grafova.
 
 #### __Grafovi i interpretacije__
 
@@ -278,9 +282,9 @@ Stupčasti graf također vizualizira rezultate prikazane u tablici broja članak
 
 <br>
 
-Kutijastri graf prikazuje statistički pregled po mjesecu, ali podatke je nešto teže interpretirati zbog uskih intervala.
+Kutijasti dijagram prikazuje statistički pregled po mjesecu, ali podatke je nešto teže interpretirati zbog uskih intervala.
 * Srednja vrijednost COVID-19 vijesti iznosi oko, dok srednja vrijednost ukupnog broja iznosi oko 2100.
-* Minimalna vrijednost objava vezanih uz COVID i ona vezana uz ukupni broj se drastično ne razlikuje od vrijednosti donjeg kvartila
+* Minimalna vrijednost objava vezanih uz COVID i ona vezana uz ukupni broj se drastično ne razlikuje od vrijednosti donjeg kvartila.
 * Maksimalni broj članaka vezanih uz COVID-19 iznosi nešto manje od 1250, dok od ukupnog broja članaka iznosi nešto manje od 2500.
 
 <div style="text-align:center" >
