@@ -16,19 +16,19 @@ Cijeli projekt je odrađen na aktualnom dalmatinskom portalu [Dalmacija Danas](h
 
 U __prvom dijelu__ projekta potrebno izgraditi listu URL-ova koji vode na članke sa zadanog portala s vijestima te svaki članak zasebno obraditi struganjem željenih podataka u _.csv_ i _.json_ datoteku. Cijeli proces je odrađen automatiziranim putem u programskom jeziku Python 3 koristeći zavisnost modula za parsiranje web stranica, automatizirano slanje JavaScript zahtjeva i slanje HTTP zahtjeva.
 
-__Drugi dio__ projekta uključuje analizu prikupljenjih podataka. Analiza je fokusirana na aktualnu krizu izazvanom novim koronavirusom, uzročnikom bolesti COVID-19. Članci su analizirani te svrstani u one koji se odnose te oni koji se ne odnose na aktualni virus. Podaci su prikazani tablično i grafički, a odnose se na omjer ukupnog broja članaka te onih koji se odnose na zadanu temu u odnosu na neki kriterij. Ti kriteriji su omjer po kategoriji, mjesecu ili pojedinačnom danu. Nadalje, određena je, prijana te vizualizirana frekventnost 25 najkorištenijih riječi na mjesečnoj bazi koje novinari na portalu koriste kada govore o virusu.
+__Drugi dio__ projekta uključuje analizu prikupljenjih podataka. Analiza je fokusirana na aktualnu krizu izazvanom novim koronavirusom, uzročnikom bolesti COVID-19. Članci su analizirani te svrstani u one koji se odnose te oni koji se ne odnose na aktualni virus. Podaci su prikazani tablično i grafički, a odnose se na omjer ukupnog broja članaka te onih koji se odnose na zadanu temu u odnosu na neki kriterij. Ti kriteriji su omjer po kategoriji, mjesecu ili pojedinačnom danu. Nadalje, određena je, tablično prikazana te vizualizirana frekventnost 25 najkorištenijih riječi na mjesečnoj bazi koje novinari na portalu koriste kada pišu o koronavirusu.
 
 ## Tehničke informacije
 
-## Operacijski sustav
+### Operacijski sustav
 * Windows 10
 
- ## Alati i softver
+ ### Alati i softver
  * Visual Studio Code
  * Windows WSL 1 (Optional)
  * pip 20.0.2 from /home/user/.local/lib/python3.6/site-packages/pip (python 3.6)
  * Python 3.6.9
- * Libraries
+ * Bliblioteke
     * _requirements.txt_ priložen u projektu
 
 <br>
@@ -37,13 +37,19 @@ __Drugi dio__ projekta uključuje analizu prikupljenjih podataka. Analiza je fok
 
 ## Prikaz elemenata portala
 
+### Naslovnica
+
 <img src="images/image_portal_1.PNG" width="600" style="text-align:center" >
 
 <br>
 
+### Prikaz kategorije Sport 
+
 <img src="images/image_category.PNG" width="600"  style="text-align:center"  >
 
 <br>
+
+### Emotikoni i obrazac za komentiranje članka
 
 <img src="images/image_portal_elements.PNG" width="600" style="text-align:center" >
 
@@ -62,9 +68,9 @@ __Napomena__: Detaljan način rada je opisan u svakoj pojedinoj skripti
 
 Skripta služi za prikupljanje jedinstvenih URL-ova na svaki članak na portalu u razdoblju od 1.1.2020 do 30.11.2020. Automatska navigacija web stranicom omogućena je koristeći se _Selenium_ i _Requests_ modulima. Identifikacija i parsiranje svakog pojedinog elementa je omogućena korištenjem _BeautifulSoup4_ modula za Python 3.
 
-Prvo se otvara željeni portal te  se preko naslovne stranice identificiraju glavne kategorije. Koristeći petlju, skripta otvara svaku pojedinu glavnu kategoriju u svrhu prikupljanja URL-ova na članke. Za navigaciju kroz svaku pojedinu kategoriju, na portalu je implementirana _JavaScript_ skripta koja omogućuje beskonačni scroll kojim se lista vidljivih članaka proširuje. Iz tog razloga, ta se skripta simulira od strane _Selenium_ modula koji scrolla stranicu određeni broj puta da bi ti članci postali vidljivi u _HTML-u_ web stranice. Zatim se svaki pojedini članak otvara, iz njega se analizomo meta podataka modulom _BeautifulSoup4_ izvlači datum objave i sam URL na članak. Ukoliko je članak iz željenog datumskog razdoblja, sprema se u željenu tekstualnu datoteku _output/portal_urls.txt_. Zatim se prelazi na sljedeću kategoriju, a postupak se ponavlja.
+Skripta prvo otvara željeni portal te  se preko naslovne stranice identificiraju glavne kategorije pretraživanjem HTML elemenata. Koristeći petlju, skripta otvara svaku pojedinu glavnu kategoriju u svrhu prikupljanja URL-ova na članke. Za navigaciju kroz svaku pojedinu kategoriju, na portalu je implementirana _JavaScript_ skripta koja omogućuje beskonačni scroll kojim se lista vidljivih članaka proširuje. Iz tog razloga, ta se skripta simulira od strane _Selenium_ modula koji scrolla stranicu određeni broj puta da bi ti članci postali vidljivi u _HTML-u_ web stranice. Zatim se svaki pojedini članak otvara, iz njega se analizaju meta podaci. Modul _BeautifulSoup4_ izvlači datum objave i poveznicu na članak. Ukoliko je članak iz željenog datumskog razdoblja (1.1.2020 do 30.11.2020), sprema se u željenu tekstualnu datoteku _output/portal_urls.txt_. Zatim se prelazi na sljedeću kategoriju, a postupak se ponavlja.
 
-Zbog činjenice da svaki scroll "košta" 1.5 sekundu, te da je svaki pojedini članak potrebno otvoriti radi provjere uvjeta, ova skripta se za željeni interval datuma izvodi po više od 8 sati.
+Zbog činjenice da svaki scroll "košta" 1.5 sekundu, te da je svaki pojedini članak potrebno otvoriti i respektivno analizirati radi provjere uvjeta, ova skripta se za željeni interval datuma izvodi po više od 8 sati.
 
 Rezultat skripte je lista od 22436 jedinstvenih poveznica na članke portala.
 
@@ -78,12 +84,12 @@ __Prikaz generiranih URL-ova__
 
 ### __article_scraper.py__
 
-Skripta služi za sekvencijalno otvaranje svih URL-ova prikupljenih skriptom _article_url_scraper.py_ te prikupljanje željenih podataka iz svakog članka. Rezultati se spremaju u _output/portal_articles.csv_ te _output/portal_articles.json_, a stvara se i svojevrsni dnevnik tekućeg pokretanja u _output/_. Tablica u nastavku prikazuje podatke koji se prikupljaju.
+Skripta služi za sekvencijalno otvaranje svih URL-ova prikupljenih skriptom _article_url_scraper.py_ te prikupljanje željenih podataka iz svakog članka. Rezultati se spremaju u _output/portal_articles.csv_ te _output/portal_articles.json_, a stvara se i svojevrsni dnevnik tekućeg pokretanja u mapi _output/_. Tablica u nastavku prikazuje podatke koji se prikupljaju.
 
 
 | Podatak             | Tip podatka   | Opis podataka  |
 | :-------------       |:-------------:| :------------|
-| ID                  | int           | Jedinstveni identifikator       |
+| ID                  | int           | Jedinstveni identifikator članka|
 | Title               | str           | Naslov članka                   |
 | Subtitle            | str           | Podnaslov članka                |
 | URL                 | str           | Poveznica na članak             |
@@ -105,7 +111,7 @@ Skripta služi za sekvencijalno otvaranje svih URL-ova prikupljenih skriptom _ar
 
 Za izvođenje ove skripte potrebno je oko 8 sati.
 
-Primjer prikupljenih podataka iz _portal_articles.json_
+<Primjer prikupljenih podataka iz _portal_articles.json_
 
 <div style="text-align:center" >
 
@@ -142,10 +148,9 @@ __Napomena__: Detaljan način rada je opisan u svakoj pojedinoj skripti
 Primarna namjena skripte je identifikacija članaka koji se odnose na tematiku COVID-19 virusa te sumarizacija tih članaka, kao i ukupnog broja članaka. Osim toga, skrita je zadužena i za stvaranje pregleda broja članaka po danu, mjesecu i kategoriji portala.
 
 Identifikacija COVID-19 članaka je realizirana pomoću tekstualne datoteke _input/covid_dictionary.txt_. Ona sadrži listu čestih riječi/pojmova koji se spominju u kontekstu izvještavanja o bolesti. Neki od primjera tih izraza su: _stožer_, _COVID-19_, _zaraženih_, _samoizolaciji_,...
-Zatim se tekstualni stupci koji sadrže podatke o članku razdvajaju na riječi koje se uspoređuju s riječima iz _covid_dictionary.txt_ liste. Ukoliko su riječi pronađene, u novi stupac _COVID_ datoteke _output/portal_articles_covid.csv_ se upisuje vrijednost 1, ukoliko članak ne sadrži te riječi, upisuje se 0.
+Zatim se tekstualni stupci koji sadrže tekst članka razdvajaju na riječi koje se uspoređuju s riječima iz _covid_dictionary.txt_ liste. Ukoliko su riječi pronađene, u novi stupac _COVID_ datoteke _output/portal_articles_covid.csv_ se upisuje vrijednost 1, ukoliko članak ne sadrži te riječi, upisuje se 0.
 
 Zatim se ti članci prebrojavaju ovisno o kriteriju te se rezultati upisuju u _.csv_ datoteke u _output/tables_categorized_. Njihov prikaz slijedi u nastavku.
-
 
 Prilikom pokretanja skripte te izgradnje _portal_articles_covid.csv_ datoteke, prikazuje se ukupan broj članaka i broj COVID-19 članaka.
 
@@ -157,7 +162,7 @@ Prilikom pokretanja skripte te izgradnje _portal_articles_covid.csv_ datoteke, p
 
 <br>
 
-Prva generirana tablica se odnosi na dnevni pregled broja članaka od 1.1.2020 do 30.11.2020 vezanih uz COVID-19 i ukupni broj. Pregled podataka za 335 redova ručno nije zahvalan posao, zato je ova tablica iskorištena za grafički pregled u sljedećem poglavlju.
+Prva generirana tablica se odnosi na dnevni pregled broja članaka od 1.1.2020 do 30.11.2020 vezanih uz COVID-19 i ukupni broj. Pregled podataka za 335 redova ručno nije zahvalan posao, zato je ova tablica iskorištena za grafički pregled koristeći sljedeću skriptu.
 
 <div style="text-align:center" >
 
@@ -167,7 +172,9 @@ Prva generirana tablica se odnosi na dnevni pregled broja članaka od 1.1.2020 d
 
 <br>
 
-Druga tablica se odnosi na pregled broja članaka vezanih uz COVID-19 i ukupan broj članaka po svakoj kategoriji koju portal ima. Tablica je sortirana abecedno, a vidljivo je da portal najviše resursa usmjeruje u kategoriju _Dalmacija_, _Vijesti_ i _Sport_ što je i očekivano zbog općeg interesa ljudi za ta područja. Također, i žuta kronika (_Relax_) nije zapostavljena. Prije navedene najpopularnije imaju najviše zastupljeni udio COVID-19 članaka što nije čudno budući da se radi domeni izvještavanja svakodnevnih događaja. Osim toga, vidljivo je da portal podosta zapostavlja podkategorije od kojih neke gotovo da i nemaju novih objava.  
+Druga tablica se odnosi na pregled broja članaka vezanih uz COVID-19 i ukupan broj članaka po svakoj kategoriji koju portal ima. Tablica je sortirana abecedno, a vidljivo je da portal najviše resursa usmjeruje u kategoriju _Dalmacija_, _Vijesti_ i _Sport_ što je i očekivano zbog općeg interesa čitatelja za ta područja. Također, i žuta kronika (_Relax_) nije zapostavljena. 
+
+Prije navedene najpopularnije rubrike imaju najviše zastupljeni udio COVID-19 članaka što nije čudno budući da se radi domeni izvještavanja svakodnevnih događaja. Osim toga, vidljivo je da portal podosta zapostavlja podkategorije od kojih neke gotovo da i nemaju novih objava. Iz tog razloga su u daljnjoj analizi te kategorije ujedinjene pod kategoriju _Other_.
 
 <div style="text-align:center" >
 
@@ -177,7 +184,7 @@ Druga tablica se odnosi na pregled broja članaka vezanih uz COVID-19 i ukupan b
 
 <br>
 
-Treća tablica se odnosi na pregled ukupnog broja COVID-19 članaka te ukupnog broja članaka na portalu na mjesečnoj bazi. Iz nje je vidljiv eksponencijalni rast COVID-19 tema u razdoblju kada informacije o njemu gotovo da i nisu bile dostupne (Ožujak i Travanj), odnosno kad je država bila pod mjerom _Lockdown-a_. To se može interpretirati i kao panična faza pandemije. U tom razdoblju je portal također imao najviše objava, a njihov je broj očito bio "napumpan" velikim brojem COVID-19 stipendija. Tijekom ljeta je taj broj opao, budući da se tematika jednostavno zapostavila, pretežito zbog spašavanja turizma od strane vladajućih. Zatim se u zadnja dva mjeseca vidi neki ponovni rast.
+Treća tablica se odnosi na pregled ukupnog broja COVID-19 članaka te ukupnog broja članaka na portalu na mjesečnoj bazi. Iz nje je vidljiv eksponencijalni rast COVID-19 tema u razdoblju kada informacije o njemu gotovo da i nisu bile dostupne (Ožujak i Travanj), odnosno kad je država bila pod mjerom _Lockdown-a_. To se može interpretirati i kao panična faza pandemije. U tom razdoblju je portal također imao najviše objava, a njihov je broj očito bio "napumpan" velikim brojem COVID-19 članaka. Tijekom ljeta je taj broj opao, budući da se tematika jednostavno zapostavila, pretežito zbog spašavanja turizma od strane vladajućih. Zatim se u zadnja dva mjeseca vidi neki ponovni rast.
 
 <div style="text-align:center" >
 
@@ -187,11 +194,11 @@ Treća tablica se odnosi na pregled ukupnog broja COVID-19 članaka te ukupnog b
 
 ### __article_url_grapher.py__
 
-Skripta učitava _.csv_  tablice nastale u skripti _article_url_tabler.py_ te ih vizualizira pomoću prikladnih grafova koji se nakon izvedbe spremaju u _graphing/_ mapu. U nastavku slijedi prikaz tih grafova
+Skripta učitava _.csv_  tablice kreirane u skripti _article_url_tabler.py_ te ih vizualizira pomoću prikladnih grafova koji se nakon izvedbe spremaju u _graphing/_ mapu. U nastavku slijedi prikaz tih grafova
 
 #### __Grafovi i interpretacije__
 
-Graf bar plot-a prikazuje ukupan odnos između broja članaka koji se odnose na COVID-19 i onih koji se ne odnose, pritom je vidljivo da gotovo pola članaka u razdoblju od 1.1.2020 do 30.12.2020 izvješćuju o COVID-19 tematici.
+Stupčasti graf prikazuje ukupan odnos između broja članaka koji se odnose na COVID-19 i onih koji se ne odnose, pritom je vidljivo da skoro pola članaka u razdoblju od 1.1.2020 do 30.12.2020 izvješćuju o COVID-19 tematici.
 
 <div style="text-align:center" >
 
@@ -201,7 +208,7 @@ Graf bar plot-a prikazuje ukupan odnos između broja članaka koji se odnose na 
 
 <br>
 
-Pie chart u nastavku prikazuje iste podatke prikazane u obliku prikladnijem za prikaz omjera.
+Tortasti graf u nastavku prikazuje iste podatke prikazane u obliku prikladnijem za vizualizaciju omjera, prilikom toga su prikazani i postoci.
 
 <div style="text-align:center" >
 
@@ -221,7 +228,7 @@ Graf prikazuje dnevnu distribuciju ukupnog broja članaka i članaka koji se odn
 
 <br>
 
-Box plot u nastavku pokazuje neke statističke podatke vezane uz dnevnu pojavu članaka. 
+Kutijasti dijagram u nastavku pokazuje neke statističke podatke vezane uz dnevnu pojavu članaka. 
 
 * Vidljivo je da srednja vrijednost iznosi oko 20 objava vezanih uz COVID-19, dok dnevna vrijednost ukupnog broja članaka iznosi oko 65. 
 * Donji i gornji kvartil se od medijana razlikuju za nešto više od 5 članaka. 
@@ -236,7 +243,7 @@ Box plot u nastavku pokazuje neke statističke podatke vezane uz dnevnu pojavu �
 
 <br>
 
-Bar plot prikazuje tablicu prikaza broja članaka po kategorijama prikazanu u prošloj skripti (_article_tabler.py_). Pritom, ovaj graf prikazuje koliko veliku razliku ima portal u broju napisanih članaka po kategorijama. Vidljivo je da COVID-19 ima više objava u kategoriji _Dalmacija_ nego u kategoriji _Relax_ (Žuta kronika) na koju su portali inače jako usredotočeni. To samo pokazuje razmjere promjene u načinu rada koje je virus uzrokovao.
+Stupčasti graf prikazuje tablicu prikaza broja članaka po kategorijama prikazanu u prošloj skripti (_article_tabler.py_). Pritom ovaj graf prikazuje koliko veliku razliku ima portal u broju napisanih članaka po kategorijama. Vidljivo je da COVID-19 ima više objava u kategoriji _Dalmacija_ nego ukupno u kategoriji _Relax_ (Žuta kronika) na koju su portali inače jako usredotočeni. To samo pokazuje razmjere promjene u načinu rada koje je virus uzrokovao.
 
 <div style="text-align:center" >
 
@@ -246,7 +253,7 @@ Bar plot prikazuje tablicu prikaza broja članaka po kategorijama prikazanu u pr
 
 <br>
 
-Pie chart prikazuje omjere između kategorija po zastupljenosti COVID-19 članaka.
+Tortasti graf prikazuje omjere između kategorija po zastupljenosti COVID-19 članaka. Prtiom su vidljivi i postoci.
 
 <div style="text-align:center" >
 
@@ -256,7 +263,7 @@ Pie chart prikazuje omjere između kategorija po zastupljenosti COVID-19 članak
 
 <br>
 
-Bar plot također vizualizira rezultate prikazane u tablici broja članaka po mjesecima iz skripte _article_tabler.py_. Vidljiva je velika sličnost s grafom koji prikazuje broj članaka na dnevnoj bazi, ali u nešto urednijem i preglednijem formatu. Ovaj graf prikazuje jednu zanimljivu pojavu, a to je da ukoliko usporedimo Siječanj i Listopad, broj članaka se povećao za točno toliko koliko iznosi broj COVID-19 članaka. Zanimljivi dio je to da većina tih ostalih vijesti na portalu promakne u sjeni onih koji su vezani za virus.
+Stupčasti graf također vizualizira rezultate prikazane u tablici broja članaka po mjesecima iz skripte _article_tabler.py_. Vidljiva je velika sličnost s grafom koji prikazuje broj članaka na dnevnoj bazi, ali u nešto urednijem i preglednijem formatu. Ovaj graf prikazuje jednu zanimljivu pojavu, a to je da ukoliko usporedimo Siječanj i Listopad, broj članaka se povećao za točno toliko koliko iznosi broj COVID-19 članaka. Zanimljivi dio je to da većina tih ostalih vijesti na portalu promakne u sjeni onih koje su vezane za virus.
 
 <div style="text-align:center" >
 
@@ -266,7 +273,7 @@ Bar plot također vizualizira rezultate prikazane u tablici broja članaka po mj
 
 <br>
 
-Box plot prikazuje statistički pregled po mjesecu, ali podatke je nešto teže interpretirati zbog uskih intervala.
+Kutijastri graf prikazuje statistički pregled po mjesecu, ali podatke je nešto teže interpretirati zbog uskih intervala.
 * Srednja vrijednost COVID-19 vijesti iznosi oko, dok srednja vrijednost ukupnog broja iznosi oko 2100.
 * Minimalna vrijednost objava vezanih uz COVID i ona vezana uz ukupni broj se drastično ne razlikuje od vrijednosti donjeg kvartila
 * Maksimalni broj članaka vezanih uz COVID-19 iznosi nešto manje od 1250, dok od ukupnog broja članaka iznosi nešto manje od 2500.
@@ -287,10 +294,11 @@ __Prva faza__ rada skripte uključuje izoliranje članaka koji su u prijašnjim 
 
 __Druga faza__ rada skripte je stvaranje liste zaustavnih riječi. To su riječi koje rečenici ne nose smisao niti informaciju, a to mogu biti veznici, uzvici, prilozi, prijedlozi, čestice,.. Radi se o nepromijenjivim vrstama riječi koje je lako izbaciti iz teksta uvođenjem liste bez naprednog procesiranja.
 
-Micanje tih riječi je realizirano stvaranjem "sirovih" baza riječi u mapi _input/raw_stopw/_ koje se jednostavnom funkcijom spajaju u jedinstveni riječnik. Taj riječnik (_stop_words_merged.txt_) sadrži riječi koje kroz obradu moraju biti izbačene. Iteriranjem kroz datoteku _portal_cvoid_isolated.csv_ izbacuju se zaustavne riječi.
+Eliminacija tih riječi je realizirano stvaranjem "sirovih" baza riječi u mapi _input/raw_stopw/_ koje se jednostavnom funkcijom spajaju u jedinstveni riječnik. Taj riječnik (_stop_words_merged.txt_) sadrži riječi koje kroz obradu moraju biti izbačene. Iteriranjem kroz datoteku _portal_cvoid_isolated.csv_ izbacuju se zaustavne riječi.
 
-__Treća faza__ rada se odnosi na stvaranje mjesečnog pregleda 25 najzastupljenijih riječi. Ovisno o mjesecu, u portalima se prebrojavaju riječi, te se gradi lista od 25 najčešćih riječi kojima se portal koristi u svakodnevnom radu. Te su liste spremljene u obliku _.csv_ datoteka u _output/word_frequencies/_, a njihove su tablice i grafovi prikazani u nastavku. Pritom su rezultati vizualizirani koristeći paket _wordcloud_, u njemu se riječi prezentiraju prema veličini ovisno o frekventnosti.
+__Treća faza__ rada se odnosi na stvaranje mjesečnog pregleda 25 najzastupljenijih riječi. Ovisno o mjesecu, broji se frekvencija te se gradi lista od 25 najčešćih riječi kojima se portal koristi u svakodnevnom radu. Te su liste spremljene u obliku _.csv_ datoteka u _output/word_frequencies/_, a njihove su tablice i grafovi prikazani u nastavku. Pritom su rezultati vizualizirani koristeći paket _wordcloud_, u njemu se riječi prezentiraju prema veličini ovisno o frekventnosti.
 
+Rezultati te obrade slijede u nastavku za svih 11 mjeseci.
 
 ### Siječanj
 
@@ -401,6 +409,8 @@ __Treća faza__ rada se odnosi na stvaranje mjesečnog pregleda 25 najzastupljen
 <img src="graphing\word_frequencies\word_frequency_11.png" width="300">
 
 </div>
+
+<br>
 
 Pregledom svih grafova je utvrđena frekventnost 25 najkorištenijih riječi za svaki mjesec. Pomnijom analizom se može uočiti da se najkorištenije riječi odnose na tada tek završene predsjedničke izbore gdje su frekventne riječi. Tu je zastupljeno i ime tada aktualne bivše predsjednice Kolinde Grabar-Kitarović. Tu je također riječ predsjednik vjerojatno korištena u kontekstu novoizabranog predsjednika. Stožer za razliku od današnjeg je tada podrazumijevao izborni stožer kandidata za predsjednika. Također, vidljivo je da je portal jako fokusiran na splitsko područje po korištenju riječi Marjan i Split. 
 
